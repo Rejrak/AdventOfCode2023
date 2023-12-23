@@ -42,47 +42,110 @@ var strength = map[byte]int{
 }
 
 func GetBest(cards string) int {
-	m := map[rune]int{}
+	cardCounts := map[rune]int{}
 
-	for _, r := range cards {
-		m[r] += 1
+	for _, card := range cards {
+		cardCounts[card]++
 	}
-	
-	if len(m) == 1 {
+
+	switch len(cardCounts) {
+	case 1:
 		return FIVE_OF_A_KIND
-	}
-
-	if len(m) == 2 {
-		for _, v := range m {
-			if v == 4 {
+	case 2:
+		for _, count := range cardCounts {
+			if count == 4 {
 				return FOUR_OF_A_KIND
 			}
 		}
 		return FULL_HOUSE
-	}
-
-	if len(m) == 3 {
-		for _, v := range m {
-			if v == 3 {
+	case 3:
+		for _, count := range cardCounts {
+			if count == 3 {
 				return THREE_OF_A_KIND
 			}
 		}
 		return TWO_PAIR
+	case 5:
+		return HIGH_CARD
+	default:
+		return ONE_PAIR
+	}
+}
+
+func wildJoke(h hand) int {
+	cardCounts := map[rune]int{}
+
+	for _, card := range h.cards {
+		cardCounts[card] += 1
 	}
 
-	if len(m) == 5 {
-		return HIGH_CARD
+	jokerCount := cardCounts['J']
+
+	if jokerCount >= 4 {
+		return FIVE_OF_A_KIND
+	}
+
+	if jokerCount == 3 {
+		if len(cardCounts) == 2 {
+			return FIVE_OF_A_KIND
+		}
+		return FOUR_OF_A_KIND
+	}
+
+	if jokerCount == 2 {
+		if h.bestHand == TWO_PAIR {
+			return FOUR_OF_A_KIND
+		}
+
+		if h.bestHand == ONE_PAIR {
+			return THREE_OF_A_KIND
+		}
+
+		if h.bestHand == FULL_HOUSE {
+			return FIVE_OF_A_KIND
+		}
+	}
+
+	if jokerCount == 1 {
+		if h.bestHand == THREE_OF_A_KIND {
+			return FOUR_OF_A_KIND
+		}
+
+		if h.bestHand == TWO_PAIR {
+			return FULL_HOUSE
+		}
+
+		if h.bestHand == ONE_PAIR {
+			return THREE_OF_A_KIND
+		}
+
+		if h.bestHand == FOUR_OF_A_KIND {
+			return FIVE_OF_A_KIND
+		}
 	}
 
 	return ONE_PAIR
 }
 
-func part1(lines []string, hands []hand, jWild bool) (score int) {
+func main() {
+	byteMap, _ := os.ReadFile(day7)
+	puzzle := string(byteMap)
+	lines := strings.Split(puzzle, "\n")
+	hands := []hand{}
+	score := 0
 
-	if jWild{
+	score = calculateScore(lines, hands, false)	
+	fmt.Printf("%#v\n", score)
+	
+	score = calculateScore(lines, hands, true)
+	fmt.Printf("%#v\n", score)
+
+}
+
+func calculateScore(lines []string, hands []hand, isJokerWild bool) int {
+
+	if isJokerWild {
 		strength['J'] = -1
-	}else {
-		strength['J'] = 11
 	}
 
 	for _, line := range lines {
@@ -91,7 +154,7 @@ func part1(lines []string, hands []hand, jWild bool) (score int) {
 		h := hand{cards: values[0], bid: bid}
 		h.bestHand = GetBest(h.cards)
 
-		if jWild && strings.Contains(h.cards, `J`){
+		if isJokerWild && strings.Contains(h.cards, "J") {
 			h.bestHand = wildJoke(h)
 		}
 
@@ -110,78 +173,10 @@ func part1(lines []string, hands []hand, jWild bool) (score int) {
 		return hands[i].bestHand < hands[j].bestHand
 	})
 
-
+	score := 0
 	for i, hand := range hands {
 		score += (i + 1) * hand.bid
 	}
 
 	return score
-}
-
-func wildJoke(h hand) int{
-	m := map[rune]int{}
-
-	for _, r := range h.cards {
-		m[r] += 1
-	}
-
-	if m['J'] >= 4{
-		return FIVE_OF_A_KIND
-	}
-
-	if m['J'] == 3 {
-		if len(m) == 2{
-			return FIVE_OF_A_KIND
-		}
-		return FOUR_OF_A_KIND
-	}
-
-	if m['J'] == 2{
-		if h.bestHand == TWO_PAIR{
-			return FOUR_OF_A_KIND
-		}
-
-		if h.bestHand == ONE_PAIR{
-			return THREE_OF_A_KIND
-		}
-		
-		if h.bestHand == FULL_HOUSE{
-			return FIVE_OF_A_KIND
-		}
-	}
-
-	if m['J'] == 1{
-		if h.bestHand == THREE_OF_A_KIND{
-			return FOUR_OF_A_KIND
-		}
-
-		if h.bestHand == TWO_PAIR{
-			return FULL_HOUSE
-		}
-
-		if h.bestHand == ONE_PAIR{
-			return THREE_OF_A_KIND
-		}
-
-		if h.bestHand == FOUR_OF_A_KIND{
-			return FIVE_OF_A_KIND
-		}
-	}
-
-	return ONE_PAIR
-}
-
-func main() {
-	byteMap, _ := os.ReadFile(day7)
-	puzzle := string(byteMap)
-	lines := strings.Split(puzzle, "\n")
-	hands := []hand{}
-	score := 0
-
-	score = part1(lines, hands, false)	
-	fmt.Printf("%#v\n", score)
-	
-	score = part1(lines, hands, true)
-	fmt.Printf("%#v\n", score)
-
 }
