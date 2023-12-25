@@ -75,8 +75,6 @@ func main() {
 	//pt1
 	pt1 = followDirection(0, directions, `AAA`, 0)
 
-	
-	
 	//pt2
 	nodes := initializeNodesPt2(coords)
 	activeNodes := foundActiveNodesPt2(nodes)
@@ -91,7 +89,7 @@ func main() {
 	}
 	pt2 := lcm
 	
-	fmt.Printf("Part 1: %d\n Part 2: %d", pt1, pt2)
+	fmt.Printf("Part 1: %d\nPart 2: %d\n", pt1, pt2)
 }
 
 func gcd(n1 int, n2 int) int {
