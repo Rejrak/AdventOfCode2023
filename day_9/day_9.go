@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	day9 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 func readAndParsePuzzle() [][]int {
-	byteMap, _ := os.ReadFile(day9)
+	byteMap, _ := os.ReadFile(puzzle)
 	puzzle := string(byteMap)
 
 	var history []int

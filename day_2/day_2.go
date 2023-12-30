@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	day2 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 func main(){
-	bytesGames, _ := os.ReadFile(day2)
+	bytesGames, _ := os.ReadFile(puzzle)
 	strGames := strings.Split(string(bytesGames), "\n")
 		
 	possibleGames := 0

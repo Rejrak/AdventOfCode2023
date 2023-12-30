@@ -12,7 +12,7 @@ import (
 // exploring go trees
 
 const (
-	day4 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 type TreeNode struct {
@@ -59,7 +59,7 @@ func countAllNodes(root *TreeNode) int {
 }
 
 func main() {
-	bytesCards, _ := os.ReadFile(day4)
+	bytesCards, _ := os.ReadFile(puzzle)
 	cards := strings.Split(string(bytesCards), "\n")
 	re := regexp.MustCompile(`\d+`)
 	points := 0

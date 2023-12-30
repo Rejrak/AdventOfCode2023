@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	day7            = "puzzle.txt"
+	puzzle            = "puzzle.txt"
 	HIGH_CARD       = 1
 	ONE_PAIR        = 2
 	TWO_PAIR        = 3
@@ -128,7 +128,7 @@ func wildJoke(h hand) int {
 }
 
 func main() {
-	byteMap, _ := os.ReadFile(day7)
+	byteMap, _ := os.ReadFile(puzzle)
 	puzzle := string(byteMap)
 	lines := strings.Split(puzzle, "\n")
 	hands := []hand{}

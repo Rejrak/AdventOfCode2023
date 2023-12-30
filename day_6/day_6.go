@@ -9,13 +9,13 @@ import (
 )
 
 const (
-	day6 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 var digitsRe = regexp.MustCompile(`\d+`)
 
 func main(){
-	byteMap, _ := os.ReadFile(day6)
+	byteMap, _ := os.ReadFile(puzzle)
 	puzzle := string(byteMap)
 	lines := strings.Split(puzzle, "\n")
 	

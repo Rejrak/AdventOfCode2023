@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	day8  = "puzzle.txt"
+	puzzle  = "puzzle.txt"
 	test2 = "test2.txt"
 )
 
@@ -26,7 +26,7 @@ type node struct {
 }
 
 func readAndParsePuzzle() (string, map[string][]string) {
-	byteMap, _ := os.ReadFile(day8)
+	byteMap, _ := os.ReadFile(puzzle)
 	puzzle := string(byteMap)	
 	directions := strings.Split(puzzle, "\n")[0]
 	strCoords := strings.Split(puzzle, "\n")[2:]

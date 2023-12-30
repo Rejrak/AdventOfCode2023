@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	day1 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 	digits = "123456789"
 	zero   = '0'
 )
@@ -28,7 +28,7 @@ func calibrationValues(codes []string, r *strings.Replacer) (result int) {
 }
 
 func main() {
-	bytesCode, _ := os.ReadFile(day1)
+	bytesCode, _ := os.ReadFile(puzzle)
 	codes := strings.Fields(string(bytesCode))
 	
 	r0 := strings.NewReplacer()

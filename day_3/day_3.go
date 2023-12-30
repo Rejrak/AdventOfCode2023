@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	day3 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 func main() {
-	byteSchema, _ := os.ReadFile(day3)
+	byteSchema, _ := os.ReadFile(puzzle)
 	engineSchema := strings.Fields(string(byteSchema))
 	re := regexp.MustCompile(`\d+`)
 	

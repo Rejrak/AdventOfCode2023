@@ -9,7 +9,7 @@ import (
 
 
 const (
-	day5 = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 func readAlmanac(strGames []string) ([]int, map[string][][]int){
@@ -79,7 +79,7 @@ func part2(strGames []string){
 }
 
 func main(){
-	byteMap, _ := os.ReadFile(day5)
+	byteMap, _ := os.ReadFile(puzzle)
 	puzzle := string(byteMap)
 	strGames := strings.Split(puzzle, "\n\n")
 	part1(strGames)

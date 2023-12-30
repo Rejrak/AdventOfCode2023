@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	puzzleFile = "puzzle.txt"
+	puzzle = "puzzle.txt"
 )
 
 func readPuzzle() [][]string {
-	bytes, _ := os.ReadFile(puzzleFile)
+	bytes, _ := os.ReadFile(puzzle)
 	puzzleLines := strings.Split(string(bytes), "\n")
 
 	var puzzle [][]string
